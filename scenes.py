@@ -9,21 +9,34 @@ from textwrap import dedent
 
 class Scene(object):
     
-    def enter(self, player):
-        self.player = player        
-        pass
+    def __init__(self, player):
+        self.player = player
+    
+    def enter(self):
+        print("This class has not been configured, subclass it and try again")        
+        
     
 # Need to define the dead scene here at the start and create instance of that class before all others so the instance can be called within other classes flawlessly
+class Dead(Scene):
     
+    def __init__(self, reason):
+        super(Dead, self).__init__()
+        self.reason = reason
+    
+    def enter(self):
+        print(self.reason)
+        print(dedent(f"""
+            Good job, {self.player.name}!"
+            "YOU LOSE!\n
+        """))
     
 class Chest_room(Scene):
     
-    def __init__(self, player):
-        self.player = player            # incorporate super() into all subclasses so i don't have to keep typing this
+    def __init__(self):
+        super(Chest_room, self).__init__()
+        self.dead = Dead()
     
     def enter(self):
-        self.player = player
-        
         print(dedent("""
             You enter a room with a chest in the centre of it.
             The chest is locked and fixed to the floor.
@@ -52,41 +65,26 @@ class Chest_room(Scene):
             print("You are alive, free, and unimaginably rich.")
             print(f"\nGood job, {self.player.name}, YOU WIN!\n")
         else:
-            pass
-        # have to find a way to call the "dead" scene into this and pass the reason
-            # dead("""
-            # You trip, fall, and hit your head on the chest.
-            # You die almost immediately.
-            # """)
+            self.dead("""
+                You trip, fall, and hit your head on hte chest.
+                You die almost immediately.
+            """)
         
 
 class Fire_room(Scene):
     
-    def __init__(self, player):
-        self.player = player
+    def __init__(self):
+        super(Fire_room, self).__init__()
     
     def enter(self):
         pass
         # call that "dead" scene here too
         
-        
-class Dead(Scene):      # Will move this when other scenes are created
-    
-    def __init__(self, player,  reason):
-        self.reason = reason        
-        self.player = player
-    
-    def enter(self, player):
-        print(self.reason)
-        print(dedent(f"""
-            Good job, {self.player.name}!"
-            "YOU LOSE!\n
-        """))
                 
 class Death_room(Scene):
     
-    def __init__(self, player):
-        self.player = player
+    def __init__(self):
+        super(Death_room, self).__init__()
 
     def enter(self):
         pass
@@ -94,6 +92,9 @@ class Death_room(Scene):
         
 
 class Python_room(Scene):
+    
+    def __init__(self):
+        super(Fire_room, self).__init__()
     
     def enter(self, player):
         print(dedent("""
@@ -119,11 +120,17 @@ class Python_room(Scene):
 
 class Spider_room(Scene):
     
+    def __init__(self):
+        super(Fire_room, self).__init__()
+    
     def enter(self, player):
         self.player = player
         
 
 class Start(Scene):
+    
+    def __init__(self):
+        super(Fire_room, self).__init__()
 
     def enter(self, player):
         print(dedent("""
