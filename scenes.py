@@ -7,10 +7,15 @@ and be mapped for easy access.
 """
 from textwrap import dedent
 
+class Player(object):
+    
+    def __init__(self, name):
+        self.name = name
+
 class Scene(object):
     
-    def __init__(self, player):
-        self.player = player
+    def __init__(self):
+        self.player = Player("Samkelwa")
     
     def enter(self):
         print("This class has not been configured, subclass it and try again")        
@@ -19,12 +24,11 @@ class Scene(object):
 # Need to define the dead scene here at the start and create instance of that class before all others so the instance can be called within other classes flawlessly
 class Dead(Scene):
     
-    def __init__(self, reason):
+    def __init__(self):
         super(Dead, self).__init__()
-        self.reason = reason
     
-    def enter(self):
-        print(self.reason)
+    def enter(self, reason):
+        print(dedent(reason))
         print(dedent(f"""
             Good job, {self.player.name}!"
             "YOU LOSE!\n
@@ -65,7 +69,7 @@ class Chest_room(Scene):
             print("You are alive, free, and unimaginably rich.")
             print(f"\nGood job, {self.player.name}, YOU WIN!\n")
         else:
-            self.dead("""
+            self.dead.enter("""
                 You trip, fall, and hit your head on hte chest.
                 You die almost immediately.
             """)
@@ -165,3 +169,9 @@ class Start(Scene):
             # dead("    You're paralysed by indecision until you die of starvation")
         
 
+
+
+# me = Player("Samkelwa")
+test = Chest_room() 
+
+test.enter()
