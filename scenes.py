@@ -21,9 +21,8 @@ class Scene(object):
         print("This class has not been configured, subclass it and try again")        
         
     
-# Need to define the dead scene here at the start and create instance of that class before all others so the instance can be called within other classes flawlessly
 class Dead(Scene):
-    
+     
     def __init__(self):
         super(Dead, self).__init__()
     
