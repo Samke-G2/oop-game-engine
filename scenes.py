@@ -5,18 +5,19 @@ last modified: 24/10/2025
 The scenes file will contain the scene class and all its objects, these will run each room (or situation) in the game
 and be mapped for easy access.
 """
-from textwrap import dedent
+from textwrap import dedent 
+import player.py
 
-class Player(object):
+# class Player(object):
     
-    def __init__(self, name):
-        self.name = name
-        self.inventory = ["knife", "torch"]
+#     def __init__(self, name):
+#         self.name = name
+#         self.inventory = ["knife", "torch"]
 
 class Scene(object):
     
     def __init__(self):
-        self.player = Player("Samkelwa")
+        self.player = Player(input("Enter your player name > "))
     
     def enter(self):
         print("This class has not been configured, subclass it and try again")        

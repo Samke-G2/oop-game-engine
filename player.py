@@ -8,8 +8,8 @@ the inventory where everything the player picks up will be stored.
 
 class Player(object):
     
-    def __init__(name, health):
+    def __init__(name):
         self.name = name
-        self.health = health
+        self.health = 500 
         self.inventory = [knife, torch]
-        
+ 
